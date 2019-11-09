@@ -14,7 +14,7 @@ This repository contains the CRUD application. You can easily use it to create a
 - Spring Boot 2
   - Spring Security
   - Spring MVC
-  - Spring Data
+  - Spring Data JPA
 - Hibernate
 - PostgreSQL
 - Maven
