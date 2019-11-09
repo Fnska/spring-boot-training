@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Lessons Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"><span th:text="'Course '+${courseYear}"></span></th>
+        <th scope="col">Name</th>
+        <th scope="col">Tasks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${th_lessons.empty}">
+        <td colspan="3"> No Lessons Available </td>
+    </tr>
+    <tr th:each="lesson : ${th_lessons}">
+        <td><span th:text="${lesson.course}"></span></td>
+        <td><span th:text="${lesson.name}">Name</span></td>
+        <td><span th:text="${lesson.tasks}">Tasks</span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

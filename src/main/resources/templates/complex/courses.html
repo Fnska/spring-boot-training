@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Courses Page</title>
+</head>
+<body>
+    <nav th:replace="fragments/header :: navigation"></nav>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Year</th>
+            <th scope="col">Lessons</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${th_courses.empty}">
+            <td colspan="2"> No Courses Available </td>
+        </tr>
+        <tr th:each="course : ${th_courses}">
+            <td><span th:text="${course.year}">Year</span></td>
+            <td><span th:text="${course.lessons}">Lessons</span></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

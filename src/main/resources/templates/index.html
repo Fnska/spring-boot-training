@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Main Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<ul>
+    <li><a th:href="@{/courses}">Courses</a></li>
+    <li><a th:href="@{/login}">login</a></li>
+    <li><a th:href="@{/logout}">logout</a></li>
+    <li><a th:href="@{/admin}">admin</a></li>
+</ul>
+</body>
+</html>

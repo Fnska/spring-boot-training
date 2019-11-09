@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Admin Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<ul>
+    <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+    <li><a th:href="@{/logout}">logout</a></li>
+    <li><a th:href="@{/}">Home</a></li>
+</ul>
+</body>
+</html>

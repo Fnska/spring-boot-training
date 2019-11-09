@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Courses Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div>
+    <div th:if="${th_lesson} == null">
+        <p th:text="'NOTHING HERE'"></p>
+    </div>
+    <div th:if="${th_lesson} != null">
+        <p th:text="${th_lesson.name}"></p>
+        <p th:text="${th_lesson.course}"></p>
+        <p th:text="${th_lesson.tasks}"></p>
+    </div>
+</div>
+</body>
+</html>

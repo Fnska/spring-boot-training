@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Create Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<form action="#" th:action="@{/admin/create-course}" th:object="${th_course_form}" method="post">
+    <p>Course Year: <input type="text" th:field="*{year}"/></p>
+    <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+</form>
+<form action="#" th:action="@{/admin/delete-course}" th:object="${th_course_form}" method="post">
+    <p>Course Year: <input type="text" th:field="*{year}"></p>
+    <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+</form>
+<br/>
+<br/>
+<form action="#" th:action="@{/admin/create-lesson}" th:object="${th_lesson_form}" method="post">
+    <p>Lesson Name: <input type="text" th:field="*{name}"></p>
+    <p>Course Year: <input type="text" th:field="*{course}"></p>
+    <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+</form>
+<form action="#" th:action="@{/admin/delete-lesson}" th:object="${th_lesson_form}" method="post">
+    <p>Lesson Name: <input type="text" th:field="*{name}"></p>
+    <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>
