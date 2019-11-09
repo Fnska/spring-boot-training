@@ -11,6 +11,7 @@ This repository contains the CRUD application. You can easily use it to create a
 - REST API
 
 ## Using
+- Java 8
 - Spring Boot 2
   - Spring Security
   - Spring MVC
