@@ -24,7 +24,7 @@ This repository contains the CRUD application. You can easily use it to create a
 Add file `~\src\main\resources\application.properties` like:
 
 ```
-spring.datasource.url= jdbc:postgresql://localhost:5432/<database_name>
+spring.datasource.url=jdbc:postgresql://localhost:5432/<database_name>
 spring.datasource.username=<username>
 spring.datasource.password=<password>
 
