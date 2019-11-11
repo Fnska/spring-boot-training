@@ -3,9 +3,30 @@
 <head>
     <link th:replace="fragments/header :: bootstrap">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Admin Page</title>
+    <title>Tasks Page</title>
 </head>
 <body>
-
+<nav th:replace="fragments/header :: navigation"></nav>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"><span th:text="'Lesson '+${lessonName}"></span></th>
+        <th scope="col">Task Number</th>
+        <th scope="col">Task Description</th>
+        <th scope="col">Task Solution Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${th_tasks.empty}">
+        <td colspan="4"> No Lessons Available </td>
+    </tr>
+    <tr th:each="task : ${th_tasks}">
+        <td><span th:text="${task.lesson}"></span></td>
+        <td><span th:text="${task.number}"></span></td>
+        <td><span th:text="${task.description}">Name</span></td>
+        <td><span th:text="${task.solutionLink}">Tasks</span></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

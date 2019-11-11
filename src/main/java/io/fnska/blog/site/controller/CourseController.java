@@ -18,7 +18,7 @@ public class CourseController {
     private CourseService courseService;
 
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public String getAllCourse(Model model) {
+    public String getAllCourses(Model model) {
         model.addAttribute("th_courses", courseService.getAllCourses());
         return "complex/courses";
     }
