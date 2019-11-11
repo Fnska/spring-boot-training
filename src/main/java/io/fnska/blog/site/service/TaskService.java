@@ -19,4 +19,20 @@ public class TaskService {
         taskRepository.findByLessonName(lessonName).forEach(tasks::add);
         return tasks;
     }
+
+    public Task getTask(String taskNumber) {
+        return taskRepository.findTaskByNumber(taskNumber);
+    }
+
+    public void addTask(Task task) {
+        if (!task.getNumber().isEmpty()) {
+            taskRepository.save(task);
+        }
+    }
+
+    public void deleteTask(String taskNumber) {
+        if (!taskNumber.isEmpty()) {
+            taskRepository.deleteById(taskNumber);
+        }
+    }
 }

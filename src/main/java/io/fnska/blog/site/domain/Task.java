@@ -25,6 +25,16 @@ public class Task {
         this.solutionLink = solutionLink;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "number='" + number + '\'' +
+                ", lesson=" + lesson +
+                ", description='" + description + '\'' +
+                ", solutionLink='" + solutionLink + '\'' +
+                '}';
+    }
+
     public String getNumber() {
         return number;
     }

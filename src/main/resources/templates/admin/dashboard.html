@@ -7,24 +7,70 @@
 </head>
 <body>
 <nav th:replace="fragments/header :: navigation"></nav>
-<form action="#" th:action="@{/admin/create-course}" th:object="${th_course_form}" method="post">
-    <p>Course Year: <input type="text" th:field="*{year}"/></p>
-    <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
-</form>
-<form action="#" th:action="@{/admin/delete-course}" th:object="${th_course_form}" method="post">
-    <p>Course Year: <input type="text" th:field="*{year}"></p>
-    <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
-</form>
-<br/>
-<br/>
-<form action="#" th:action="@{/admin/create-lesson}" th:object="${th_lesson_form}" method="post">
-    <p>Lesson Name: <input type="text" th:field="*{name}"></p>
-    <p>Course Year: <input type="text" th:field="*{course}"></p>
-    <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
-</form>
-<form action="#" th:action="@{/admin/delete-lesson}" th:object="${th_lesson_form}" method="post">
-    <p>Lesson Name: <input type="text" th:field="*{name}"></p>
-    <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <span class="badge badge-info">Courses</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/admin/create-course}" th:object="${th_course_form}" method="post">
+                        <p>Course Year: <input type="text" th:field="*{year}"/></p>
+                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/admin/delete-course}" th:object="${th_course_form}" method="post">
+                        <p>Course Year: <input type="text" th:field="*{year}"></p>
+                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span class="badge badge-info">Lessons</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/admin/create-lesson}" th:object="${th_lesson_form}" method="post">
+                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>
+                        <p>Course Year: <input type="text" th:field="*{course}"></p>
+                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/admin/delete-lesson}" th:object="${th_lesson_form}" method="post">
+                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>
+                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span class="badge badge-info">Tasks</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/admin/create-task}" th:object="${th_task_form}" method="post">
+                        <p>Lesson Name: <input type="text" th:field="*{lesson}"></p>
+                        <p>Task Number: <input type="text" th:field="*{number}"></p>
+                        <p>Task Description: <input type="text" th:field="*{description}"></p>
+                        <p>Task Solution Link: <input type="text" th:field="*{solutionLink}"></p>
+                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/admin/delete-task}" th:object="${th_task_form}" method="post">
+                        <p>Lesson Name: <input type="text" th:field="*{number}"></p>
+                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

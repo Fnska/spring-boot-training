@@ -7,6 +7,16 @@
 </head>
 <body>
 <nav th:replace="fragments/header :: navigation"></nav>
-Lorem ipsum!
+<div>
+    <div th:if="${th_task} == null">
+        <p th:text="'NOTHING HERE'"></p>
+    </div>
+    <div th:if="${th_task} != null">
+        <p th:text="${th_task.lesson}"></p>
+        <p th:text="${th_task.number}"></p>
+        <p th:text="${th_task.description}"></p>
+        <p th:text="${th_task.solutionLink}"></p>
+    </div>
+</div>
 </body>
 </html>
