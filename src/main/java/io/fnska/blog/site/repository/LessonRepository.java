@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LessonRepository extends CrudRepository<Lesson, String> {
-    public List<Lesson> findByCourseYear(String courseYear);
+public interface LessonRepository extends CrudRepository<Lesson, String> {//TODO: String -> Long
 
-    public Lesson findLessonByName(String lessonName);
+    List<Lesson> findByCourseYear(String courseYear);
+
+    Lesson findLessonByName(String lessonName);
 }

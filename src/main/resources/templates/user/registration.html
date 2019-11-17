@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Main Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+
+<form action="#" th:action="@{/user/registration/create}" th:object="${th_user_form}" method="post">
+    <p>First Name: <input type="text" th:field="*{firstName}"></p>
+    <p>Last Name: <input type="text" th:field="*{lastName}"></p>
+    <p>Login: <input type="text" th:field="*{login}"></p>
+    <p>Password: <input type="password" th:field="*{password}"></p>
+    <p><input type="submit" value="Sing Up"/> <input type="reset" value="Reset"/></p>
+</form>
+
+<a th:href="@{/login}">login</a>
+</body>
+</html>

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends CrudRepository<Task, String> {
-    public List<Task> findByLessonName(String lessonName);
+public interface TaskRepository extends CrudRepository<Task, String> { //TODO: String -> Long
+    List<Task> findByLessonName(String lessonName);
 
-    public Task findTaskByNumber(String taskNumber);
+    Task findTaskByNumber(String taskNumber);
 
 }

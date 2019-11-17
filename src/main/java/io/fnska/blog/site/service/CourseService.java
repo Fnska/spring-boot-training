@@ -1,10 +1,13 @@
 package io.fnska.blog.site.service;
 
 import io.fnska.blog.site.domain.Course;
+import io.fnska.blog.site.domain.User;
 import io.fnska.blog.site.repository.CourseRepository;
+import io.fnska.blog.site.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,10 @@ public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     public List<Course> getAllCourses() {
         List<Course> courses = new ArrayList<>();
@@ -21,15 +28,18 @@ public class CourseService {
         return courses;
     }
 
-    public void addCourse(Course course) {
+    public void addCourse(Course course, Principal principal) {
         if (!course.getYear().isEmpty()) {
+            course.setUser(userRepository.findUserByLogin(principal.getName()));
             courseRepository.save(course);
         }
     }
 
-    public void deleteCourse(String courseYear) {
+    public void deleteCourse(String courseYear, Principal principal) {
+
         if (!courseYear.isEmpty()) {
-            courseRepository.deleteById(courseYear);
+            User user = userRepository.findUserByLogin(principal.getName());
+            courseRepository.deleteCourseByYearAndUser_Id(courseYear, user.getId());
         }
     }
 

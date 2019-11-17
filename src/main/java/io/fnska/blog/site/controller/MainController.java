@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String main(Model model) {
+    public String main() {
         return "index";
     }
 
@@ -28,4 +28,5 @@ public class MainController {
         model.addAttribute("th_task_form", new Task());
         return "admin/dashboard";
     }
+
 }

@@ -6,10 +6,15 @@ import javax.persistence.*;
 @Entity
 public class Task {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "serial")
+    private long id;
+
+    @Column(nullable = false)
     private String number;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "lesson_name")
+    @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
     private String description;
@@ -33,6 +38,14 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", solutionLink='" + solutionLink + '\'' +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNumber() {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/header :: bootstrap">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Create Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <span class="badge badge-info">Courses</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/user/{username}/dashboard/create-course(username=${th_username})}" th:object="${th_course_form}" method="post">
+                        <p>Course Year: <input type="text" th:field="*{year}"/></p>
+                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/user/{username}/dashboard/delete-course(username=${th_username})}" th:object="${th_course_form}" method="post">
+                        <p>Course Year: <input type="text" th:field="*{year}"></p>
+                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+<!--        <div class="col-md-4">-->
+<!--            <span class="badge badge-info">Lessons</span>-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <form action="#" th:action="@{/user/${principal.getUsername()}/create-lesson}" th:object="${th_lesson_form}" method="post">-->
+<!--                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>-->
+<!--                        <p>Course Year: <input type="text" th:field="*{course}"></p>-->
+<!--                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <form action="#" th:action="@{/admin/delete-lesson}" th:object="${th_lesson_form}" method="post">-->
+<!--                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>-->
+<!--                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-4">-->
+<!--            <span class="badge badge-info">Tasks</span>-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <form action="#" th:action="@{/user/${principal.getUsername()}/create-task}" th:object="${th_task_form}" method="post">-->
+<!--                        <p>Lesson Name: <input type="text" th:field="*{lesson}"></p>-->
+<!--                        <p>Task Number: <input type="text" th:field="*{number}"></p>-->
+<!--                        <p>Task Description: <input type="text" th:field="*{description}"></p>-->
+<!--                        <p>Task Solution Link: <input type="text" th:field="*{solutionLink}"></p>-->
+<!--                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <form action="#" th:action="@{/user/${principal.getUsername()}/delete-task}" th:object="${th_task_form}" method="post">-->
+<!--                        <p>Lesson Name: <input type="text" th:field="*{number}"></p>-->
+<!--                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+</body>
+</html>

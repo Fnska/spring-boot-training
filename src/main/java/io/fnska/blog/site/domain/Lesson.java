@@ -7,16 +7,32 @@ import java.util.List;
 @Entity
 public class Lesson {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "serial")
+    private long id;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "lesson")
     private List<Task> tasks;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_year")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     public Lesson() {
+    }
+
+    public Lesson(String name, List<Task> tasks) {
+        this.name = name;
+        this.tasks = tasks;
+    }
+
+    public Lesson(String name, List<Task> tasks, Course course) {
+        this.name = name;
+        this.tasks = tasks;
+        this.course = course;
     }
 
     @Override
@@ -24,9 +40,12 @@ public class Lesson {
         return name;
     }
 
-    public Lesson(String name, List<Task> tasks) {
-        this.name = name;
-        this.tasks = tasks;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

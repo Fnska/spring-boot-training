@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
+
 @Controller
 public class CourseController {
 
@@ -31,15 +33,15 @@ public class CourseController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/admin/create-course", method = RequestMethod.POST)
-    public String addCourse(@ModelAttribute Course course) {
-        courseService.addCourse(course);
+    public String addCourse(@ModelAttribute Course course, Principal principal) {
+        courseService.addCourse(course, principal);
         return "redirect:/admin/dashboard";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/admin/delete-course", method = RequestMethod.POST)
-    public String deleteCourse(@ModelAttribute Course course) {
-        courseService.deleteCourse(course.getYear());
+    public String deleteCourse(@ModelAttribute Course course, Principal principal) {
+        courseService.deleteCourse(course.getYear(), principal);
         return "redirect:/admin/dashboard";
     }
 
