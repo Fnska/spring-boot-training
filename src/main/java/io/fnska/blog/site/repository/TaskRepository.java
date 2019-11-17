@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends CrudRepository<Task, String> { //TODO: String -> Long
+public interface TaskRepository extends CrudRepository<Task, String> { //TODO: String -> Long and change methods like in Course
     List<Task> findByLessonName(String lessonName);
 
     Task findTaskByNumber(String taskNumber);

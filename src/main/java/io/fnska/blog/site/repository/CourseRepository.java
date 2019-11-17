@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface CourseRepository extends CrudRepository<Course, Long> {//TODO: String -> Long
+public interface CourseRepository extends CrudRepository<Course, Long> {
 
     @Modifying
     @Transactional

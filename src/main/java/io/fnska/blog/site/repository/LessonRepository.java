@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LessonRepository extends CrudRepository<Lesson, String> {//TODO: String -> Long
+public interface LessonRepository extends CrudRepository<Lesson, String> {//TODO: String -> Long and change methods like in Course
 
     List<Lesson> findByCourseYear(String courseYear);
 
