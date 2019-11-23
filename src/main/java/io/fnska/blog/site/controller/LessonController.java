@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
+
 @Controller
 public class LessonController {
 
@@ -32,16 +34,16 @@ public class LessonController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/admin/create-lesson", method = RequestMethod.POST)
-    public String addLesson(@ModelAttribute Lesson lesson) {
-        lessonService.addLesson(lesson);
+    public String addLesson(@ModelAttribute Lesson lesson, Principal principal) {
+        lessonService.addLesson(lesson, principal);
         return "redirect:/admin/dashboard";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/admin/delete-lesson", method = RequestMethod.POST)
-    public String deleteLesson(@ModelAttribute Lesson lesson) {
-        lessonService.deleteLesson(lesson.getName());
-        return "redirect:/admin/dashboard";
-    }
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    @RequestMapping(value = "/admin/delete-lesson", method = RequestMethod.POST)
+//    public String deleteLesson(@ModelAttribute Lesson lesson) {
+//        lessonService.deleteLesson(lesson.getName());
+//        return "redirect:/admin/dashboard";
+//    }
 
 }

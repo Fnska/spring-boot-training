@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
 
@@ -13,7 +15,11 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
     @Transactional
     void deleteCourseByYearAndUser_Id(String year, Long id);
 
-
     Course findCourseByYear(String courseYear);
 
+    List<Course> findAllByUser_Login(String username);
+
+    Course findCourseByYearAndUser_Login(String courseYear, String username);
+
+    Course findCourseByUser_Login(String username);
 }

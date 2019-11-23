@@ -47,4 +47,14 @@ public class CourseService {
         return courseRepository.findCourseByYear(courseYear);
     }
 
+    public List<Course> getAllCoursesByUsername(Principal principal) {
+        List<Course> courses = new ArrayList<>();
+        courseRepository.findAllByUser_Login(principal.getName()).forEach(courses::add);
+        courses.sort((o1, o2) -> o1.getYear().compareTo(o2.getYear())); // 10 goes after 1; 21 goes after 2 adn etc.
+        return courses;
+    }
+
+    public Course getCourseByYearAndUsername(Principal principal, String courseYear) {
+        return courseRepository.findCourseByYearAndUser_Login(courseYear, principal.getName());
+    }
 }

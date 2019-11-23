@@ -28,26 +28,27 @@
                 </div>
             </div>
         </div>
-<!--        <div class="col-md-4">-->
-<!--            <span class="badge badge-info">Lessons</span>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <form action="#" th:action="@{/user/${principal.getUsername()}/create-lesson}" th:object="${th_lesson_form}" method="post">-->
-<!--                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>-->
-<!--                        <p>Course Year: <input type="text" th:field="*{course}"></p>-->
-<!--                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <form action="#" th:action="@{/admin/delete-lesson}" th:object="${th_lesson_form}" method="post">-->
-<!--                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>-->
-<!--                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="col-md-4">
+            <span class="badge badge-info">Lessons</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/user/{username}/dashboard/create-lesson(username=${th_username})}" th:object="${th_lesson_form}" method="post">
+                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>
+                        <p>Course Year: <input type="text" th:field="*{course.year}"></p>
+                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/user/{username}/dashboard/delete-lesson(username=${th_username})}" th:object="${th_lesson_form}" method="post">
+                        <p>Lesson Name: <input type="text" th:field="*{name}"></p>
+                        <p>Course Year: <input type="text" th:field="*{course.year}"></p>
+                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+        </div>
 <!--        <div class="col-md-4">-->
 <!--            <span class="badge badge-info">Tasks</span>-->
 <!--            <div class="row">-->
