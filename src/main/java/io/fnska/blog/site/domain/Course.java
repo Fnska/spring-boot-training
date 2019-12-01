@@ -3,6 +3,7 @@ package io.fnska.blog.site.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Course {
     @Column(nullable = false)
     private String year;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Lesson> lessons;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -41,6 +42,19 @@ public class Course {
     @Override
     public String toString() {
         return year;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(year, course.year);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year);
     }
 
     public long getId() {

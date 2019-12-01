@@ -15,11 +15,9 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
     @Transactional
     void deleteCourseByYearAndUser_Id(String year, Long id);
 
-    Course findCourseByYear(String courseYear);
-
     List<Course> findAllByUser_Login(String username);
 
     Course findCourseByYearAndUser_Login(String courseYear, String username);
 
-    Course findCourseByUser_Login(String username);
+
 }

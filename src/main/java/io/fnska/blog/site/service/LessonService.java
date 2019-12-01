@@ -17,19 +17,13 @@ public class LessonService {
 
     @Autowired
     private LessonRepository lessonRepository;
-    @Autowired
-    private UserRepository userRepository;
+
     @Autowired
     private CourseRepository courseRepository;
 
-    public List<Lesson> getAllLessons(String courseYear) {
-        List<Lesson> lessons = new ArrayList<>();
-        lessonRepository.findByCourseYear(courseYear).forEach(lessons::add);
-        return lessons;
-    }
-
     public void addLesson(Lesson lesson, Principal principal) {
-        if (!lesson.getName().isEmpty() && !lesson.getCourse().getYear().isEmpty()) {
+        List<Lesson> lessons = getAllLessonsByUserAndYear(principal, lesson.getCourse().getYear());
+        if (!lesson.getName().isEmpty() && !lesson.getCourse().getYear().isEmpty() && !lessons.contains(lesson)) {
             Course course = courseRepository.findCourseByYearAndUser_Login(lesson.getCourse().getYear(), principal.getName());
             if (course != null) {
                 lesson.setCourse(course);
@@ -48,8 +42,19 @@ public class LessonService {
         }
     }
 
-    public Lesson getLesson(String lessonName) {
-        return lessonRepository.findLessonByName(lessonName);
+    public Lesson getLessonByUserAndCourseYearAndLessonName(Principal principal, String courseYear, String lessonName) {
+        List<Lesson> lessons = getAllLessonsByUserAndYear(principal, courseYear);
+        Lesson lesson = findLessonByLessonName(lessons, lessonName);
+        return lesson;
+    }
+
+    private static Lesson findLessonByLessonName(List<Lesson> lessons, String lessonName) {
+        for (Lesson lesson : lessons) {
+            if (lesson.getName().toLowerCase().equals(lessonName.toLowerCase())) {
+                return lesson;
+            }
+        }
+        return null;
     }
 
     public List<Lesson> getAllLessonsByUserAndYear(Principal principal, String courseYear) {

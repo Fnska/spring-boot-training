@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:replace="fragments/header :: bootstrap">
+    <script th:replace="fragments/header :: js1"></script>
+    <script th:replace="fragments/header :: js2"></script>
+    <script th:replace="fragments/header :: js3"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Create Page</title>
 </head>
@@ -49,28 +52,30 @@
                 </div>
             </div>
         </div>
-<!--        <div class="col-md-4">-->
-<!--            <span class="badge badge-info">Tasks</span>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <form action="#" th:action="@{/user/${principal.getUsername()}/create-task}" th:object="${th_task_form}" method="post">-->
-<!--                        <p>Lesson Name: <input type="text" th:field="*{lesson}"></p>-->
-<!--                        <p>Task Number: <input type="text" th:field="*{number}"></p>-->
-<!--                        <p>Task Description: <input type="text" th:field="*{description}"></p>-->
-<!--                        <p>Task Solution Link: <input type="text" th:field="*{solutionLink}"></p>-->
-<!--                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <form action="#" th:action="@{/user/${principal.getUsername()}/delete-task}" th:object="${th_task_form}" method="post">-->
-<!--                        <p>Lesson Name: <input type="text" th:field="*{number}"></p>-->
-<!--                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="col-md-4">
+            <span class="badge badge-info">Tasks</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/user/{username}/dashboard/create-task(username=${th_username})}" th:object="${th_task_form}" method="post">
+                        <p>Course Year: <input type="text" th:field="*{lesson.course.year}"></p>
+                        <p>Lesson Name: <input type="text" th:field="*{lesson.name}"></p>
+                        <p>Task Number: <input type="text" th:field="*{number}"></p>
+                        <p>Task Description: <input type="text" th:field="*{description}"></p>
+                        <p>Task Solution Link: <input type="text" th:field="*{solutionLink}"></p>
+                        <p><input type="submit" value="Add"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" th:action="@{/user/{username}/dashboard/delete-task(username=${th_username})}" th:object="${th_task_form}" method="post">
+                        <p>Task Number: <input type="text" th:field="*{number}"></p>
+                        <p>Lesson Name: <input type="text" th:field="*{lesson.name}"></p>
+                        <p><input type="submit" value="Delete"/> <input type="reset" value="Reset"/></p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

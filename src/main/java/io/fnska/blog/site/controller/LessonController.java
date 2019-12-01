@@ -3,7 +3,6 @@ package io.fnska.blog.site.controller;
 import io.fnska.blog.site.domain.Lesson;
 import io.fnska.blog.site.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,31 +18,49 @@ public class LessonController {
     @Autowired
     private LessonService lessonService;
 
-    @RequestMapping("/courses/{courseYear}/lessons")
-    public String getAllLessons(@PathVariable String courseYear, Model model) {
-        model.addAttribute("th_courseYear", courseYear);
-        model.addAttribute("th_lessons", lessonService.getAllLessons(courseYear));
-        return "complex/lessons";
+    @RequestMapping(value = "user/{username}/courses/{courseYear}/lessons", method = RequestMethod.GET)
+    public String getAllLessonsByUsername(@PathVariable("username") String username,
+                                          @PathVariable String courseYear,
+                                          Principal principal, Model model) {
+        if (username.equalsIgnoreCase(principal.getName())) {
+            model.addAttribute("th_courseYear", courseYear);
+            model.addAttribute("th_lessons", lessonService.getAllLessonsByUserAndYear(principal, courseYear));
+            return "complex/lessons";
+        }
+        return "error/403";
     }
 
-    @RequestMapping(value = "/courses/{courseYear}/lessons/{lessonName}", method = RequestMethod.GET)
-    public String getLesson(@PathVariable String lessonName, Model model) {
-        model.addAttribute("th_lesson", lessonService.getLesson(lessonName));
-        return "single/lesson";
+    @RequestMapping(value = "user/{username}/courses/{courseYear}/lessons/{lessonName}", method = RequestMethod.GET)
+    public String getLessonByUsername(@PathVariable("username") String username,
+                                      @PathVariable String courseYear,
+                                      @PathVariable String lessonName,
+                                      Principal principal, Model model) {
+        if (username.equalsIgnoreCase(principal.getName())) {
+            model.addAttribute("th_courseYear", courseYear);
+            model.addAttribute("th_lesson", lessonService.getLessonByUserAndCourseYearAndLessonName(principal, courseYear, lessonName));
+            return "single/lesson";
+        }
+        return "error/403";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/admin/create-lesson", method = RequestMethod.POST)
-    public String addLesson(@ModelAttribute Lesson lesson, Principal principal) {
-        lessonService.addLesson(lesson, principal);
-        return "redirect:/admin/dashboard";
+    @RequestMapping(value = "user/{username}/dashboard/create-lesson", method = RequestMethod.POST)
+    public String addLesson(@PathVariable("username") String username,
+                            @ModelAttribute Lesson lesson, Principal principal) {
+        if (username.equalsIgnoreCase(principal.getName()) && !(lesson.getName().isEmpty())) {
+            lessonService.addLesson(lesson, principal);
+            return "redirect:/user/{username}/dashboard";
+        }
+        return "error/403";
     }
 
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    @RequestMapping(value = "/admin/delete-lesson", method = RequestMethod.POST)
-//    public String deleteLesson(@ModelAttribute Lesson lesson) {
-//        lessonService.deleteLesson(lesson.getName());
-//        return "redirect:/admin/dashboard";
-//    }
+    @RequestMapping(value = "user/{username}/dashboard/delete-lesson", method = RequestMethod.POST)
+    public String deleteLesson(@PathVariable("username") String username,
+                               @ModelAttribute Lesson lesson, Principal principal) {
+        if (username.equalsIgnoreCase(principal.getName()) && !(lesson.getName().isEmpty())) {
+            lessonService.deleteLesson(lesson, principal);
+            return "redirect:/user/{username}/dashboard";
+        }
+        return "error/403";
+    }
 
 }
