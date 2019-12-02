@@ -32,7 +32,7 @@ public class TaskService {
         return taskRepository.findAllByLesson_Id(lessonId);
     }
 
-    private static Long findLessonIdByLessonName (List<Lesson> lessons, String lessonName) {
+    private static Long findLessonIdByLessonName(List<Lesson> lessons, String lessonName) {
         for (Lesson lesson : lessons) {
             if (lesson.getName().toLowerCase().equals(lessonName.toLowerCase())) {
                 return lesson.getId();
@@ -42,7 +42,7 @@ public class TaskService {
     }
 
     public Task getTaskByNumberAndUser(Principal principal, String courseYear, String lessonName, String taskNumber) {
-        List<Task> tasks = getAllTasksByUserAndLessonName(principal,courseYear, lessonName);
+        List<Task> tasks = getAllTasksByUserAndLessonName(principal, courseYear, lessonName);
         Task task = findTaskByNumber(tasks, taskNumber);
         return task;
     }
@@ -55,20 +55,28 @@ public class TaskService {
         }
         return null;
     }
-    // TODO: добавление и удаление Тасков, из principal найти lessonId!
-//    public void addTask(Task task, Principal principal) {
-//
-//        Lesson lesson = lessonRepository.findLessonByNameAndCourse_Year(task.getLesson().getName(),
-//                                                                        task.getLesson().getCourse().getYear());
-//        task.setLesson(lesson);
-//        if (!task.getNumber().isEmpty()) {
-//            taskRepository.save(task);
-//        }
-//    }
-//
-//    public void deleteTask(String taskNumber, String lessonName) {
-//        if (!taskNumber.isEmpty() && !lessonName.isEmpty()) {
-//            taskRepository.deleteTaskByNumberAndLesson_Name(taskNumber, lessonName);
-//        }
-//    }
+
+    public void addTask(Task task, Principal principal) {
+
+        Lesson lesson = lessonRepository.findLessonByNameAndCourse_YearAndCourse_User_Login(task.getLesson().getName(),
+                task.getLesson().getCourse().getYear(), principal.getName());
+
+        task.setLesson(lesson);
+        List<Task> tasks = getAllTasksByUserAndLessonName(principal, task.getLesson().getCourse().getYear(), task.getLesson().getName());
+        if (!task.getNumber().isEmpty() && !tasks.contains(task)) {
+            taskRepository.save(task);
+        }
+    }
+
+    public void deleteTask(Task task, Principal principal) {
+        Lesson lesson = lessonRepository.findLessonByNameAndCourse_YearAndCourse_User_Login(task.getLesson().getName(),
+                task.getLesson().getCourse().getYear(), principal.getName());
+        task.setLesson(lesson);
+        if (!task.getNumber().isEmpty() && !(task.getLesson().getId() == 0) && lesson != null) {
+            /* TODO : when delete last Task line below is trying to delete lesson and you get Exception:
+             org.postgresql.util.PSQLException: ОШИБКА: UPDATE или DELETE в таблице "course" нарушает ограничение внешнего ключа "XXXXXX" таблицы "lesson"
+            */
+            taskRepository.deleteTaskByNumberAndLesson_Id(task.getNumber(), task.getLesson().getId());
+        }
+    }
 }

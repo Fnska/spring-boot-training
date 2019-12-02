@@ -17,5 +17,6 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
     @Transactional
     void deleteLessonByNameAndCourse_Year(String lessonName, String courseYear);
 
-    Lesson findLessonByNameAndCourse_Year(String lessonName, String courseYear);
+    Lesson findLessonByNameAndCourse_YearAndCourse_User_Login(String lessonName, String courseYear, String username);
+
 }

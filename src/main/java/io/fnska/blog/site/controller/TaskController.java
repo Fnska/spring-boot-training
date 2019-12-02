@@ -71,8 +71,9 @@ public class TaskController {
     public String deleteTask(@PathVariable("username") String username, @ModelAttribute Task task, Principal principal) {
         if (username.equalsIgnoreCase(principal.getName())
                 && !(task.getNumber().isEmpty())
-                && !(task.getLesson().getName().isEmpty())) {
-            taskService.deleteTask(task.getNumber(), task.getLesson().getName());
+                && !(task.getLesson().getName().isEmpty())
+                && !(task.getLesson().getCourse().getYear().isEmpty())) {
+            taskService.deleteTask(task, principal);
             return "redirect:/user/{username}/dashboard";
         }
         return "error/403";

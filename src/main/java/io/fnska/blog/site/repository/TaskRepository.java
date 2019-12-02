@@ -12,9 +12,7 @@ import java.util.List;
 public interface TaskRepository extends CrudRepository<Task, Long> {
     List<Task> findAllByLesson_Id(Long lessonId);
 
-    Task findTaskByNumber(String taskNumber);
-
     @Modifying
     @Transactional
-    void deleteTaskByNumberAndLesson_Name(String taskNumber, String lessonId);
+    void deleteTaskByNumberAndLesson_Id(String taskNumber, Long lessonId);
 }
