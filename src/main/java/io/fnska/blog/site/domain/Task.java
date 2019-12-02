@@ -1,6 +1,7 @@
 package io.fnska.blog.site.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -38,6 +39,19 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", solutionLink='" + solutionLink + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(number, task.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number);
     }
 
     public long getId() {

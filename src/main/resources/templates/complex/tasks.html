@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:replace="fragments/header :: bootstrap">
+    <script th:replace="fragments/header :: js1"></script>
+    <script th:replace="fragments/header :: js2"></script>
+    <script th:replace="fragments/header :: js3"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Tasks Page</title>
 </head>
@@ -10,7 +13,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col"><span th:text="'Lesson '+${lessonName}"></span></th>
+        <th scope="col"><span th:text="'Lesson '+${th_lesson_name}"></span></th>
         <th scope="col">Task Number</th>
         <th scope="col">Task Description</th>
         <th scope="col">Task Solution Link</th>
@@ -21,7 +24,7 @@
         <td colspan="4"> No Lessons Available </td>
     </tr>
     <tr th:each="task : ${th_tasks}">
-        <td><span th:text="${task.lesson}"></span></td>
+        <td><span th:text="${task.lesson.name}"></span></td>
         <td><span th:text="${task.number}"></span></td>
         <td><span th:text="${task.description}">Name</span></td>
         <td><span th:text="${task.solutionLink}">Tasks</span></td>

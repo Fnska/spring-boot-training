@@ -11,13 +11,12 @@ import java.util.List;
 @Repository
 public interface LessonRepository extends CrudRepository<Lesson, Long> {
 
-    List<Lesson> findByCourseYear(String courseYear);
-
-    Lesson findLessonByName(String lessonName);
-
     List<Lesson> findAllByCourse_User_LoginAndCourse_Year(String username, String courseYear);
 
     @Modifying
     @Transactional
     void deleteLessonByNameAndCourse_Year(String lessonName, String courseYear);
+
+    Lesson findLessonByNameAndCourse_YearAndCourse_User_Login(String lessonName, String courseYear, String username);
+
 }

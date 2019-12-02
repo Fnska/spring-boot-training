@@ -11,37 +11,72 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
+
 @Controller
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
 
-    @RequestMapping("/courses/{courseYear}/lessons/{lessonName}/tasks")
-    public String getAllTasks(@PathVariable String lessonName, Model model) {
-        model.addAttribute("th_lessonName", lessonName);
-        model.addAttribute("th_tasks", taskService.getAllTasks(lessonName));
-        return "complex/tasks";
+    @RequestMapping("user/{username}/courses/{courseYear}/lessons/{lessonName}/tasks")
+    public String getAllTasksByUsername(@PathVariable("username") String username,
+                                        @PathVariable String courseYear,
+                                        @PathVariable String lessonName,
+                                        Principal principal, Model model) {
+        if (username.equalsIgnoreCase(principal.getName())) {
+            model.addAttribute("th_courseYear", courseYear);
+            model.addAttribute("th_lesson_name", lessonName);
+            model.addAttribute("th_tasks", taskService.getAllTasksByUserAndLessonName(principal, courseYear, lessonName));
+            return "complex/tasks";
+        }
+        return "error/403";
     }
 
-    @RequestMapping(value = "/courses/{courseYear}/lessons/{lessonName}/tasks/{taskNumber}", method = RequestMethod.GET)
-    public String getLesson(@PathVariable String taskNumber, Model model) {
-        model.addAttribute("th_task", taskService.getTask(taskNumber));
-        return "single/task";
+    @RequestMapping(value = "user/{username}/courses/{courseYear}/lessons/{lessonName}/tasks/{taskNumber}", method = RequestMethod.GET)
+    public String getLessonByUsername(@PathVariable("username") String username,
+                                      @PathVariable String courseYear,
+                                      @PathVariable String lessonName,
+                                      @PathVariable String taskNumber,
+                                      Principal principal, Model model) {
+        if (username.equalsIgnoreCase(principal.getName())) {
+            model.addAttribute("th_courseYear", courseYear);
+            model.addAttribute("th_task", taskService.getTaskByNumberAndUser(principal, courseYear, lessonName, taskNumber));
+            return "single/task";
+        }
+        return "error/403";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/admin/create-task", method = RequestMethod.POST)
-    public String addTask(@ModelAttribute Task task) {
-        taskService.addTask(task);
-        return "redirect:/admin/dashboard";
+
+    @RequestMapping(value = "user/{username}/dashboard/create-task", method = RequestMethod.POST)
+    public String addTask(@PathVariable("username") String username, @ModelAttribute Task task, Principal principal) {
+        if (username.equalsIgnoreCase(principal.getName())
+                && isInputTaskValid(task)) {
+            taskService.addTask(task, principal);
+            return "redirect:/user/{username}/dashboard";
+        }
+        return "error/403";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/admin/delete-task", method = RequestMethod.POST)
-    public String deleteTask(@ModelAttribute Task task) {
-        taskService.deleteTask(task.getNumber());
-        return "redirect:/admin/dashboard";
+    private static boolean isInputTaskValid(Task task) {
+        if ((task.getNumber().isEmpty()
+                || task.getLesson().getName().isEmpty()
+                || task.getLesson().getCourse().getYear().isEmpty())) {
+            return false;
+        }
+        return true;
+    }
+
+    @RequestMapping(value = "user/{username}/dashboard/delete-task", method = RequestMethod.POST)
+    public String deleteTask(@PathVariable("username") String username, @ModelAttribute Task task, Principal principal) {
+        if (username.equalsIgnoreCase(principal.getName())
+                && !(task.getNumber().isEmpty())
+                && !(task.getLesson().getName().isEmpty())
+                && !(task.getLesson().getCourse().getYear().isEmpty())) {
+            taskService.deleteTask(task, principal);
+            return "redirect:/user/{username}/dashboard";
+        }
+        return "error/403";
     }
 
 }
