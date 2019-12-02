@@ -74,7 +74,7 @@ public class TaskService {
         task.setLesson(lesson);
         if (!task.getNumber().isEmpty() && !(task.getLesson().getId() == 0) && lesson != null) {
             /* TODO : when delete last Task line below is trying to delete lesson and you get Exception:
-             org.postgresql.util.PSQLException: ОШИБКА: UPDATE или DELETE в таблице "course" нарушает ограничение внешнего ключа "XXXXXX" таблицы "lesson"
+                org.postgresql.util.PSQLException: ОШИБКА: UPDATE или DELETE в таблице "course" нарушает ограничение внешнего ключа "XXXXXX" таблицы "lesson"
             */
             taskRepository.deleteTaskByNumberAndLesson_Id(task.getNumber(), task.getLesson().getId());
         }

@@ -33,6 +33,9 @@ public class LessonService {
     }
 
     public void deleteLesson(Lesson lesson, Principal principal) {
+        /* TODO: Exception like in the Task.deleteTask() when delete last or Lesson with foreign key
+            this trying to delete all links in course and task but it is impossible
+        */
         if (lesson != null) {
             Course course = courseRepository.findCourseByYearAndUser_Login(lesson.getCourse().getYear(), principal.getName());
             if (course != null) {
