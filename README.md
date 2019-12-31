@@ -5,9 +5,10 @@ This repository contains the CRUD application. You can easily use it to create a
 - CRUD courses, lessons and tasks throught admin dashboard
 - One Course can have Many Lessons
 - One Lesson can have Many Tasks
+- Registration form and own lists of courses for users
 
 ## Future Features
-- Registration form and own lists of courses for users
+- Subcsribes and sharing your lists
 - REST API
 
 ## Using
